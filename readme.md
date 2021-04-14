@@ -1,6 +1,6 @@
 # Testiny (A declarative way to test your REST APIs)
 
-![testiny logo](testiny_logo.png)
+![testiny logo](testiny_logo-200x200.png)
 
 
 ## JSON Testing Schema
