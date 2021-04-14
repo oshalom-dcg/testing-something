@@ -1,9 +1,14 @@
-## Schema
+# Testiny (A declarative way to test your REST APIs)
+
+![testiny logo](testiny_logo.png)
+
+
+## JSON Testing Schema
 
 - `host` _&lt;string&gt;_ **required** - this is the host name of the api 
 - `isHttps` _&lt;boolean&gt;_ *optional* - indicate whether the api domain is https, defaults to false
 - `authentication` _&lt;object&gt;_ *optional*
-    - `stradegy` _&lt;string&gt;_  **required** - oneOf ["FIREBASE"]
+    - `strategy` _&lt;string&gt;_  **required** - oneOf ["FIREBASE"]
     - `placement` _&lt;object&gt;_ **required** where to place the JWT token or cookie
         - `type` _&lt;string&gt;_ **required** oneOf ["header", "payload", "query", "cookie"]
         - `key` _&lt;string&gt;_ **required** the name of the token or cookie to inject the value in
@@ -11,54 +16,84 @@
     - `apiKey` _&lt;string&gt;_ **required** api key for the firebase app
     - `email` _&lt;string&gt;_ **required** email of the user to authenticate 
     - `password` _&lt;string&gt;_ **required** password of the user to authenticate 
-- `tests` _&lt;Array&lt;object&gt;&gt;_ *optional* the tests in which will 
+- `tests` _Array&lt;object&gt;_ *optional* the tests in which will 
     - `name` _&lt;string&gt;_ **required** name of the test, can be anything but should be descriptive
-    - `authentication` _&lt;string&gt;_ *optional* name of authentication to be used in the test
+    - `authenticated` _&lt;boolean&gt;_ *optional* whether or not this request should be authenticated default false
     - `path` _&lt;string&gt;_ **required** path of the api route
     - `method` _&lt;string&gt;_ **required** method of the api route to test
-
+    - `payloads` _&lt;object&gt;_ *optional* method of the api route to test
     
 
 
+## Example file
+
 ```js
 module.exports = {
-  host: "api.navarc.co",
-  isHttps: false,
+  host: "api.todo.com",
+  isHttps: true,
   authentication: {
-    stradegy: "FIREBASE",
+    strategy: "FIREBASE",
     placement: {
       type: "header",
-      key: "idtoken",
+      key: "Token",
     },
-    name: "firebase-auth",
-    apiKey: "AIzaSyCPRlgyIs3368E1RD4jpdWkavydRjhteps",
-    email: "test@test.com",
-    password: "password",
+    apiKey: "KSzanhFYRlgyIs3368E1RD4jpdWkavydRjhtfee",
+    email: "mrcool@gmail.com",
+    password: "myPassword123",
   },
   tests: [
     {
-      name: "Score cards graph",
-      authentication: "firebase-auth",
-      path: "overview/scorecards/graph",
-      method: "POST",
-      metric: [
-        "Total Sales",
-        "Best Seller Rank (Median)",
-        "Weighted Buy Box %",
-        "Advertising Spend",
-        "Total Sessions",
-        "Products on Page 1",
-        "Potential Sales Growth",
-        "Advertising Saes",
-      ],
-      dateview: ["Day", "Week"],
+      name: "get all todos",
+      authenticated: false,
+      path: "todos/all",
+      method: "GET"
     },
     {
-      name: "overview scorecards",
-      authentication: "firebase-auth",
-      path: "overview/scorecards",
+      name: "add todos",
+      authenticated: true,
+      path: "todos/add",
       method: "POST",
+      payload: {
+        todo: ["get milk", "drive car", "shower"]
+      }
     },
   ],
 };
+```
+
+The above json file will be parsed and converted to 4 tests dynamically, it will have the following generated and runned:
+
+```http
+GET https://api.todo.com/todos/all
+token: <id token value here>
+```
+
+```
+POST https://api.todo.com/todos/add HTTP/1.1
+Content-Type: application/json
+Token: <id token value here>
+
+{
+    "todo": "get milk"
+}
+```
+
+```
+POST https://api.todo.com/todos/add HTTP/1.1
+Content-Type: application/json
+Token: <id token value here>
+
+{
+    "todo": "drive car"
+}
+```
+
+```
+POST https://api.todo.com/todos/add HTTP/1.1
+Content-Type: application/json
+Token: <id token value here>
+
+{
+    "todo": "shower"
+}
 ```
