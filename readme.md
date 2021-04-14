@@ -1,6 +1,18 @@
 ## Schema
 
-- `host` *&lt;string&gt;* (required)
+- `host` _&lt;string&gt;_ **required** - this is the host name of the api 
+- `isHttps` _&lt;boolean&gt;_ optional - indicate whether the api domain is https, defaults to false
+- `authenication` _&lt;object&gt;_ optional
+    - `stradegy` _&lt;string&gt;_  **required** - oneOf ["FIREBASE"]
+    - `placement` _&lt;object&gt;_ **required** where to place the JWT token or cookie
+        - `type` _&lt;string&gt;_ **required** oneOf ["header", "payload", "query", "cookie"]
+        - `key` _&lt;string&gt;_ **required** the name of the token or cookie to inject the value in
+    - `name` _&lt;string&gt;_ **required** a name for this authentication to be referenced with other tests
+    - `apiKey` _&lt;string&gt;_ **required** api key for the firebase app
+    - `email` _&lt;string&gt;_ **required** email of the user to authenticate 
+    - `password` _&lt;string&gt;_ **required** password of the user to authenticate 
+    
+
 
 ```js
 module.exports = {
