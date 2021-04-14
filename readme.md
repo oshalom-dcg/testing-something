@@ -5,9 +5,7 @@
 <img src="testiny_logo-200x200.png" align="right"
      alt="Size Limit logo by Anton Lovchikov">
 
-Size Limit is a performance budget tool for JavaScript. It checks every commit
-on CI, calculates the real cost of your JS for end-users and throws an error
-if the cost exceeds the limit.
+Testiny is a API testing tool for any language. It checks a single JS config file and parses to generate tests. Every generate will run and produce either a sucess or an error. 
 
 * **ES modules** and **tree-shaking** support.
 * Add Size Limit to **Travis CI**, **Circle CI**, **GitHub Actions**
