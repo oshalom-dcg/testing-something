@@ -1,2 +1,2 @@
-- <span style='background-color: #444950;padding: 4px; border-radius: 5px;'>options</span> &lt;object&gt;
-    - <span style='background-color: #444950;padding: 4px; border-radius: 5px;'>clip</span> 
+- `options` &lt;object&gt;
+    - `clip`
