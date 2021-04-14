@@ -1,8 +1,8 @@
 ## Schema
 
 - `host` _&lt;string&gt;_ **required** - this is the host name of the api 
-- `isHttps` _&lt;boolean&gt;_ optional - indicate whether the api domain is https, defaults to false
-- `authenication` _&lt;object&gt;_ optional
+- `isHttps` _&lt;boolean&gt;_ *optional* - indicate whether the api domain is https, defaults to false
+- `authentication` _&lt;object&gt;_ *optional*
     - `stradegy` _&lt;string&gt;_  **required** - oneOf ["FIREBASE"]
     - `placement` _&lt;object&gt;_ **required** where to place the JWT token or cookie
         - `type` _&lt;string&gt;_ **required** oneOf ["header", "payload", "query", "cookie"]
@@ -11,6 +11,12 @@
     - `apiKey` _&lt;string&gt;_ **required** api key for the firebase app
     - `email` _&lt;string&gt;_ **required** email of the user to authenticate 
     - `password` _&lt;string&gt;_ **required** password of the user to authenticate 
+- `tests` _&lt;Array&lt;object&gt;&gt;_ *optional* the tests in which will 
+    - `name` _&lt;string&gt;_ **required** name of the test, can be anything but should be descriptive
+    - `authentication` _&lt;string&gt;_ *optional* name of authentication to be used in the test
+    - `path` _&lt;string&gt;_ **required** path of the api route
+    - `method` _&lt;string&gt;_ **required** method of the api route to test
+
     
 
 
@@ -18,7 +24,7 @@
 module.exports = {
   host: "api.navarc.co",
   isHttps: false,
-  authenication: {
+  authentication: {
     stradegy: "FIREBASE",
     placement: {
       type: "header",
@@ -32,7 +38,7 @@ module.exports = {
   tests: [
     {
       name: "Score cards graph",
-      authenication: "firebase-auth",
+      authentication: "firebase-auth",
       path: "overview/scorecards/graph",
       method: "POST",
       metric: [
@@ -49,7 +55,7 @@ module.exports = {
     },
     {
       name: "overview scorecards",
-      authenication: "firebase-auth",
+      authentication: "firebase-auth",
       path: "overview/scorecards",
       method: "POST",
     },
