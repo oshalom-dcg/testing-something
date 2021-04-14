@@ -1,5 +1,7 @@
 # Testiny 
 
+> A declartive way to test RESTful API's with a single JS config.
+
 <img src="testiny_logo-200x200.png" align="right"
      alt="Size Limit logo by Anton Lovchikov">
 
