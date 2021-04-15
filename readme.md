@@ -7,7 +7,7 @@
 
 Testiny is a API testing tool for any language. It checks a single JS config file and parses to generate tests. Every generate will run and produce either a sucess or an error. 
 
-https://user-images.githubusercontent.com/70663071/114795232-b6d21600-9d53-11eb-862f-0e168deceb4e.mov
+![demo](https://user-images.githubusercontent.com/70663071/114795232-b6d21600-9d53-11eb-862f-0e168deceb4e.mov)
 
 * **ES modules** and **tree-shaking** support.
 * Add Size Limit to **Travis CI**, **Circle CI**, **GitHub Actions**
